@@ -193,6 +193,8 @@ class FieldDateResponse {
     required this.name,
     required this.message,
   });
+
+  String? get toMap => '"${name.toJson()}":"${message.trim()}"';
 }
 
 class FieldDecode extends FieldDataConfig {
@@ -259,7 +261,8 @@ class FieldDataDecode extends FieldDataConfig {
       grouped.map((e) => FieldDecode(codes: e).response).toList();
 
   FieldDateResponseFormat get format {
-    final source =  grouped.map((e) => FieldDecode(codes: e).toJson()).toList();
+    final source = '{ ${responses.map((e) => e.toMap).toList().join(',')}}';
+    print(source);
     return FieldDateResponseFormat.fromJson(source);
   }
 
