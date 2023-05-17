@@ -22,26 +22,24 @@ class _HomePageState extends State<HomePage> {
       final razerDecode = TerminalDecode(codes: event);
       if (razerDecode.ackKey == razerDecode.numberListToHexList(event)[0]) {
         print("Acknowledge");
-      } 
-      else if (razerDecode.nackKey == razerDecode.numberListToHexList(event)[0]) {
+      } else if (razerDecode.nackKey ==
+          razerDecode.numberListToHexList(event)[0]) {
         print("Not Acknowledge");
-      }else {
-        final reponses = razerDecode.fieldDatas.reponses;
-        reponses.forEach((element) {
-          print('${element.name} - ${element.message}');
-        });
+      } else {
+        // final reponses = razerDecode.fieldDatas.reponses;
+        final format = razerDecode.fieldDatas.format;
+        print(format);
+        // reponses.forEach((element) {
+        //   if(element.name == FieldName.receiptData){
+
+        //   }else{
+        //     print('${element.name} - ${element.message}');
+        //   }
+        // });
         sendAckMessage();
       }
     });
     super.initState();
-  }
-
-  String message = "";
-
-  void messageReceived(String msg) {
-    setState(() {
-      message = msg;
-    });
   }
 
   void sendMessage(List<String> msgs) {
@@ -103,16 +101,22 @@ class _HomePageState extends State<HomePage> {
             ),
             TextButton(
               onPressed: () => sendMessage(razer.purchase(
-                  "00000000000000001000", 450, 0,
-                  by: PaymentBy.creditCard)),
+                  "00000000000000001000", 100, 0,
+                  by: PaymentBy.eWallet)),
               child: const Text("3.7 TRANSACTION CODE '20' PURCHASE"),
             ),
             TextButton(
               onPressed: () => sendMessage(razer.salesVoid(
                 "00000000000000000123",
-                "000014",
+                "000025",
+                by: PaymentBy.creditCard
               )),
               child: const Text("3.11TRANSACTION CODE '40' VOID"),
+            ),
+            TextButton(
+              onPressed: () =>
+                  sendMessage(razer.refund("00000000000000001000", 450)),
+              child: const Text("3.12TRANSACTION CODE '41' REFUND"),
             ),
             TextButton(
               onPressed: () =>
@@ -121,7 +125,7 @@ class _HomePageState extends State<HomePage> {
             ),
             TextButton(
               onPressed: () =>
-                  sendMessage(razer.printReport("This is Testing")),
+                  sendMessage(razer.printReport("123456712345671234567")),
               child: const Text("3.15 TRANSACTION CODE '60' PRINT RECEIPT"),
             ),
             TextButton(

@@ -13,7 +13,7 @@ class TerminalDecode extends TerminalConfig {
   String get codesStartKey => codesHex[0];
   String get codesEndKey => codesHex[codesHex.length - 2];
   String get codesLrcKey => codesHex[codesHex.length - 1];
-  int get codesLength => int.parse(([codesHex[1], codesHex[2]].map((e) => e.replaceAll('0x', '')).join("")));
+  int get codesLength => hexLength([codesHex[1], codesHex[2]]);
   // Validation
   List<String> get codesLrcMessage => codesHex.sublist(1, codesHex.length - 1);
   bool get startKeyVal => startKey == codesStartKey;
@@ -22,7 +22,7 @@ class TerminalDecode extends TerminalConfig {
 
   bool get lrcVal => generateLrc(codesLrcMessage) == codesLrcKey;
 
-  FieldDatasDecode get fieldDatas => FieldDatasDecode(code: codesHex);
+  FieldDataDecode get fieldDatas => FieldDataDecode(code: codesHex);
 
   bool validation() {
     if (startKeyVal && endKeyVal && lengthVal && lrcVal) {

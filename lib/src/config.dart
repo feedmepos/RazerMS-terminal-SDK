@@ -7,10 +7,16 @@ class TerminalConfig {
   String ackKey = '0x06';
   String nackKey = '0x15';
 
+  String padLeftSpace(String msg, int space) => msg.padLeft(space, " ");
+  
   String padLeftZero(String msg, int space) => msg.padLeft(space, "0");
 
-  String stringToHex(String hex) =>
-      (hex.contains('0x') ? hex : '0x${padLeftZero(hex, 2)}').toLowerCase();
+  String stringToHex(String code) =>
+      (code.contains('0x') ? code : '0x${padLeftZero(code, 2)}').toLowerCase();
+
+  String hexToString(String code) => code.replaceAll("0x", "");
+
+  int hexLength(List<String> codes) => int.parse((codes.map((e) => hexToString(e)).join("")));
 
   String numberToHex(int number) =>
       '0x${padLeftZero(number.toRadixString(16), 2)}'.toLowerCase();
@@ -18,7 +24,10 @@ class TerminalConfig {
   List<String> numberListToHexList(List<int> codes) =>
       codes.map((e) => numberToHex(e)).toList();
 
-  int hexToNumber(String hex) => int.parse(stringToHex(hex));
+  int hexToNumber(String code) => int.parse(stringToHex(code));
+
+  List<String> stringListToHexList(List<String> codes) =>
+      codes.map((e) => stringToHex(e)).toList();
 
   List<int> hexListToNumberList(List<String> codes) =>
       codes.map((e) => hexToNumber(e)).toList();
@@ -29,8 +38,13 @@ class TerminalConfig {
     return hex;
   }
 
-  String hexListToUtf(List<String> hex) =>
-      utf8.decode(hex.map((e) => int.parse(e)).toList(), allowMalformed: true);
+  String hexListToUtf(List<String> codes) =>
+      utf8.decode(codes.map((e) => int.parse(e)).toList(), allowMalformed: true);
+
+  String hexListToBinary(List<String> codes) => codes
+      .map((e) => padLeftZero(int.parse(e).toRadixString(2), 8))
+      .toList()
+      .join(" ");
 
   String generateLrc(List<String> msgs) {
     String lrc = '0x00';

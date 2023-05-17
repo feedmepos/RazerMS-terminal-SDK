@@ -71,7 +71,10 @@ enum FieldName {
   track1Data,
   track2Data,
   track3Data,
-  walletId,
+  walletId;
+
+  String toJson() => name;
+  static FieldName fromJson(String json) => values.byName(json);
 }
 
 enum FieldType{
@@ -119,7 +122,7 @@ class FieldDataConfig extends TerminalConfig {
     Field(name: FieldName.cashbackAmount, code: "42", length: 12, type: FieldType.ascii),
     Field(name: FieldName.batchNo, code: "50", length: 6, type: FieldType.ascii),
     Field(name: FieldName.forceSettlementFlag, code: "52", length: 1, type: FieldType.ascii),
-    Field(name: FieldName.receiptText, code: "60", length: 21, type: FieldType.ascii),
+    Field(name: FieldName.receiptText, code: "60", length: null, type: FieldType.ascii),
     Field(name: FieldName.screenText, code: "61", length: 20, type: FieldType.ascii),
     Field(name: FieldName.screenTimeout, code: "62", length: 3, type: FieldType.ascii),
     Field(name: FieldName.traceNo, code: "64", length: 6, type: FieldType.ascii),
@@ -169,11 +172,11 @@ class FieldDataConfig extends TerminalConfig {
     Field(name: FieldName.walletId, code: "W1", length: 2, type: FieldType.ascii),
   ];
 
-  FieldName byCode(String code) {
+  Field byCode(String code) {
     try {
-      return fieldList.firstWhere((element) => element.code == code).name;
+      return fieldList.firstWhere((element) => element.code == code);
     } catch (err) {
-      return FieldName.unknown;
+      return Field(name: FieldName.unknown, code: "-1", length: null, type: FieldType.ascii);
     }
   }
 }

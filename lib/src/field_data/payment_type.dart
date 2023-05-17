@@ -1,4 +1,9 @@
-enum PaymentBy { all, creditCard, eWallet }
+enum PaymentBy {
+  @Deprecated('Dont Work Properly')
+  all,
+  creditCard,
+  eWallet,
+}
 
 enum EWalletName {
   alipay,

@@ -19,7 +19,7 @@ class FieldData extends FieldDataConfig {
   }
 
   List<String> fieldData(String data) {
-    if (data.length != length) throw "Invalid Length";
+    if (length != null &&  data.length != length) throw "Invalid Length";
     return [
       ...utfToHexList(code),
       '0x00',

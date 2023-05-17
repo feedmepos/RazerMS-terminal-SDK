@@ -1,4 +1,189 @@
-import 'package:rms_terminal_sdk/src/field_data/field_data_config.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
+import 'package:rms_terminal_sdk/main.dart';
+
+class FieldDateResponseFormat {
+  String? payAccountId;
+  String? approvalCode;
+  String? reponseText;
+  String? transactionId;
+  String? transactionDate;
+  String? transactionTime;
+  String? retrievalReferenceNo;
+  String? terminalId;
+  String? merchantReceiptFooter;
+  String? customerReceiptFooter;
+  String? encryptedCardNo;
+  String? cardNo;
+  String? expiryDate;
+  String? cardIssueDate;
+  String? memberExpiryDate;
+  String? accountBalance;
+  String? amount;
+  String? batchNo;
+  String? traceNo;
+  String? invoiceNo;
+  String? merchantName;
+  String? merchantNo;
+  String? cardIssueName;
+  String? cardLabel;
+  String? cardHolderName;
+  String? aid;
+  String? applicationProfile;
+  String? cid;
+  String? tsi;
+  String? tvr;
+  String? cardEntryMode;
+  String? customData;
+
+  FieldDateResponseFormat({
+    this.payAccountId,
+    this.approvalCode,
+    this.reponseText,
+    this.transactionId,
+    this.transactionDate,
+    this.transactionTime,
+    this.retrievalReferenceNo,
+    this.terminalId,
+    this.merchantReceiptFooter,
+    this.customerReceiptFooter,
+    this.encryptedCardNo,
+    this.cardNo,
+    this.expiryDate,
+    this.cardIssueDate,
+    this.memberExpiryDate,
+    this.accountBalance,
+    this.amount,
+    this.batchNo,
+    this.traceNo,
+    this.invoiceNo,
+    this.merchantName,
+    this.merchantNo,
+    this.cardIssueName,
+    this.cardLabel,
+    this.cardHolderName,
+    this.aid,
+    this.applicationProfile,
+    this.cid,
+    this.tsi,
+    this.tvr,
+    this.cardEntryMode,
+    this.customData,
+  });
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'payAccountId': payAccountId,
+      'approvalCode': approvalCode,
+      'reponseText': reponseText,
+      'transactionId': transactionId,
+      'transactionDate': transactionDate,
+      'transactionTime': transactionTime,
+      'retrievalReferenceNo': retrievalReferenceNo,
+      'terminalId': terminalId,
+      'merchantReceiptFooter': merchantReceiptFooter,
+      'customerReceiptFooter': customerReceiptFooter,
+      'encryptedCardNo': encryptedCardNo,
+      'cardNo': cardNo,
+      'expiryDate': expiryDate,
+      'cardIssueDate': cardIssueDate,
+      'memberExpiryDate': memberExpiryDate,
+      'accountBalance': accountBalance,
+      'amount': amount,
+      'batchNo': batchNo,
+      'traceNo': traceNo,
+      'invoiceNo': invoiceNo,
+      'merchantName': merchantName,
+      'merchantNo': merchantNo,
+      'cardIssueName': cardIssueName,
+      'cardLabel': cardLabel,
+      'cardHolderName': cardHolderName,
+      'aid': aid,
+      'applicationProfile': applicationProfile,
+      'cid': cid,
+      'tsi': tsi,
+      'tvr': tvr,
+      'cardEntryMode': cardEntryMode,
+      'customData': customData,
+    };
+  }
+
+  factory FieldDateResponseFormat.fromMap(Map<String, dynamic> map) {
+    return FieldDateResponseFormat(
+      payAccountId:
+          map['payAccountId'] != null ? map['payAccountId'] as String : null,
+      approvalCode:
+          map['approvalCode'] != null ? map['approvalCode'] as String : null,
+      reponseText:
+          map['reponseText'] != null ? map['reponseText'] as String : null,
+      transactionId:
+          map['transactionId'] != null ? map['transactionId'] as String : null,
+      transactionDate: map['transactionDate'] != null
+          ? map['transactionDate'] as String
+          : null,
+      transactionTime: map['transactionTime'] != null
+          ? map['transactionTime'] as String
+          : null,
+      retrievalReferenceNo: map['retrievalReferenceNo'] != null
+          ? map['retrievalReferenceNo'] as String
+          : null,
+      terminalId:
+          map['terminalId'] != null ? map['terminalId'] as String : null,
+      merchantReceiptFooter: map['merchantReceiptFooter'] != null
+          ? map['merchantReceiptFooter'] as String
+          : null,
+      customerReceiptFooter: map['customerReceiptFooter'] != null
+          ? map['customerReceiptFooter'] as String
+          : null,
+      encryptedCardNo: map['encryptedCardNo'] != null
+          ? map['encryptedCardNo'] as String
+          : null,
+      cardNo: map['cardNo'] != null ? map['cardNo'] as String : null,
+      expiryDate:
+          map['expiryDate'] != null ? map['expiryDate'] as String : null,
+      cardIssueDate:
+          map['cardIssueDate'] != null ? map['cardIssueDate'] as String : null,
+      memberExpiryDate: map['memberExpiryDate'] != null
+          ? map['memberExpiryDate'] as String
+          : null,
+      accountBalance: map['accountBalance'] != null
+          ? map['accountBalance'] as String
+          : null,
+      amount: map['amount'] != null ? map['amount'] as String : null,
+      batchNo: map['batchNo'] != null ? map['batchNo'] as String : null,
+      traceNo: map['traceNo'] != null ? map['traceNo'] as String : null,
+      invoiceNo: map['invoiceNo'] != null ? map['invoiceNo'] as String : null,
+      merchantName:
+          map['merchantName'] != null ? map['merchantName'] as String : null,
+      merchantNo:
+          map['merchantNo'] != null ? map['merchantNo'] as String : null,
+      cardIssueName:
+          map['cardIssueName'] != null ? map['cardIssueName'] as String : null,
+      cardLabel: map['cardLabel'] != null ? map['cardLabel'] as String : null,
+      cardHolderName: map['cardHolderName'] != null
+          ? map['cardHolderName'] as String
+          : null,
+      aid: map['aid'] != null ? map['aid'] as String : null,
+      applicationProfile: map['applicationProfile'] != null
+          ? map['applicationProfile'] as String
+          : null,
+      cid: map['cid'] != null ? map['cid'] as String : null,
+      tsi: map['tsi'] != null ? map['tsi'] as String : null,
+      tvr: map['tvr'] != null ? map['tvr'] as String : null,
+      cardEntryMode:
+          map['cardEntryMode'] != null ? map['cardEntryMode'] as String : null,
+      customData:
+          map['customData'] != null ? map['customData'] as String : null,
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory FieldDateResponseFormat.fromJson(String source) =>
+      FieldDateResponseFormat.fromMap(
+          json.decode(source) as Map<String, dynamic>);
+}
 
 class FieldDateResponse {
   FieldName name;
@@ -10,25 +195,45 @@ class FieldDateResponse {
   });
 }
 
-class FieldDataDecode extends FieldDataConfig {
-  List<String> code;
+class FieldDecode extends FieldDataConfig {
+  List<String> codes;
 
-  FieldDataDecode({
-    required this.code,
+  FieldDecode({
+    required this.codes,
   });
 
-  FieldName get fieldName {
-    final nameList = hexListToUtf(code.sublist(0, 2));
-    return byCode(nameList);
+  Field get field {
+    try {
+      final nameList = hexListToUtf(codes.sublist(0, 2));
+      return byCode(nameList);
+    } catch (err) {
+      return Field(
+        name: FieldName.unknown,
+        code: "-1",
+        length: null,
+        type: FieldType.ascii,
+      );
+    }
   }
 
-  String get fieldMessage {
+  FieldName get name => field.name;
+
+  FieldType get type => field.type;
+
+  String get message {
     try {
-      if (fieldName == FieldName.unknown) {
-        return "";
+      final messageList = codes.sublist(4, codes.length - 1);
+      if (name == FieldName.customData) {
+        return CustomDataDecode(codes: messageList).reponses;
       } else {
-        final messageList = code.sublist(4, code.length - 1);
-        return hexListToUtf(messageList);
+        switch (type) {
+          case FieldType.ascii:
+            return hexListToUtf(messageList);
+          case FieldType.binary:
+            return hexListToBinary(messageList);
+          default:
+            return '';
+        }
       }
     } catch (err) {
       return "";
@@ -36,30 +241,35 @@ class FieldDataDecode extends FieldDataConfig {
   }
 
   FieldDateResponse get response =>
-      FieldDateResponse(name: fieldName, message: fieldMessage);
+      FieldDateResponse(name: name, message: message);
 }
 
-class FieldDatasDecode extends FieldDataConfig {
+class FieldDataDecode extends FieldDataConfig {
   List<String> code;
 
-  FieldDatasDecode({
+  FieldDataDecode({
     required this.code,
   });
 
   List<String> get fieldData => code.sublist(21, code.length - 2);
+
   List<List<String>> get grouped => splitFieldDatas(fieldData);
-  List<FieldDateResponse> get reponses =>
-      grouped.map((e) => FieldDataDecode(code: e).response).toList();
+
+  List<FieldDateResponse> get responses =>
+      grouped.map((e) => FieldDecode(codes: e).response).toList();
+
+  FieldDateResponseFormat get format {
+    final source =  grouped.map((e) => FieldDecode(codes: e).toJson()).toList();
+    return FieldDateResponseFormat.fromJson(source);
+  }
 
   List<List<String>> splitFieldDatas(List<String> data) {
     List<List<String>> result = [];
-    List<String> temp = [];
-    for (var i = 0; i < data.length; i++) {
-      temp.add(data[i]);
-      if (data[i] == separatorKey) {
-        result.add(temp);
-        temp = [];
-      }
+    var i = 0;
+    while (i < data.length) {
+      int length = hexLength(data.sublist(i + 2, i + 4)) + 5;
+      result.add(data.sublist(i, i + length));
+      i += length;
     }
     return result;
   }
