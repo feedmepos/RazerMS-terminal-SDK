@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:rms_terminal_sdk/main.dart';
+import 'package:rms_terminal_sdk/rms_terminal_sdk.dart';
 
 class HomePage extends StatefulWidget {
   final Socket socket;
@@ -26,16 +26,10 @@ class _HomePageState extends State<HomePage> {
           razerDecode.numberListToHexList(event)[0]) {
         print("Not Acknowledge");
       } else {
-        // final reponses = razerDecode.fieldDatas.reponses;
-        final format = razerDecode.fieldDatas.format;
-        print(format);
-        // reponses.forEach((element) {
-        //   if(element.name == FieldName.receiptData){
-
-        //   }else{
-        //     print('${element.name} - ${element.message}');
-        //   }
-        // });
+        final responses = razerDecode.fieldDatas.responses;
+        for (var res in responses) {
+          print('${res.name} - ${res.message}');
+        }
         sendAckMessage();
       }
     });
@@ -107,10 +101,8 @@ class _HomePageState extends State<HomePage> {
             ),
             TextButton(
               onPressed: () => sendMessage(razer.salesVoid(
-                "00000000000000000123",
-                "000025",
-                by: PaymentBy.creditCard
-              )),
+                  "00000000000000000123", "000025",
+                  by: PaymentBy.creditCard)),
               child: const Text("3.11TRANSACTION CODE '40' VOID"),
             ),
             TextButton(

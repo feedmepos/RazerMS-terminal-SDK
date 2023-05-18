@@ -1,4 +1,4 @@
-import 'package:rms_terminal_sdk/main.dart';
+import 'package:rms_terminal_sdk/rms_terminal_sdk.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cases.dart';
@@ -49,9 +49,9 @@ void main() {
     });
     test("field data", () {
       final fieldDatas = FieldDataDecode(code: razerDecode.codesHex);
-      fieldDatas.responses.forEach((element) {
-        print('${element.name} - ${element.message}');
-      });
+      for (var res in fieldDatas.responses) {
+        print('${res.name} - ${res.message}');
+      }
     });
   });
   group("'10' CARD DETAIL INQUIRY", () {
@@ -99,9 +99,9 @@ void main() {
     });
     test("field data", () {
       final fieldDatas = FieldDataDecode(code: razerDecode.codesHex);
-      fieldDatas.responses.forEach((element) {
-        print('${element.name} - ${element.message}');
-      });
+      for (var res in fieldDatas.responses) {
+        print('${res.name} - ${res.message}');
+      }
     });
   });
   group("'11' BALANCE INQUIRY", () {
@@ -140,9 +140,9 @@ void main() {
     });
     test("field data", () {
       final fieldDatas = FieldDataDecode(code: razerDecode.codesHex);
-      fieldDatas.responses.forEach((element) {
-        print('${element.name} - ${element.message}');
-      });
+      for (var res in fieldDatas.responses) {
+        print('${res.name} - ${res.message}');
+      }
     });
   });
   group("'12' LAST TRANSACTION INQUIRY", () {
@@ -181,9 +181,9 @@ void main() {
     });
     test("field data", () {
       final fieldDatas = FieldDataDecode(code: razerDecode.codesHex);
-      fieldDatas.responses.forEach((element) {
-        print('${element.name} - ${element.message}');
-      });
+      for (var res in fieldDatas.responses) {
+        print('${res.name} - ${res.message}');
+      }
     });
   });
   group("'12' LAST TRANSACTION INQUIRY", () {
@@ -222,9 +222,9 @@ void main() {
     });
     test("field data", () {
       final fieldDatas = FieldDataDecode(code: razerDecode.codesHex);
-      fieldDatas.responses.forEach((element) {
-        print('${element.name} - ${element.message}');
-      });
+      for (var res in fieldDatas.responses) {
+        print('${res.name} - ${res.message}');
+      }
     });
   });
   group("'20' PURCHASE", () {
@@ -295,8 +295,7 @@ void main() {
         print('${element.name} - ${element.message}');
       });
 
-      final fieldDatasEwallet =
-          FieldDataDecode(code: razerDecodeCard.codesHex);
+      final fieldDatasEwallet = FieldDataDecode(code: razerDecodeCard.codesHex);
       fieldDatasEwallet.responses.forEach((element) {
         print('${element.name} - ${element.message}');
       });
@@ -338,9 +337,9 @@ void main() {
     });
     test("field data", () {
       final fieldDatas = FieldDataDecode(code: razerDecode.codesHex);
-      fieldDatas.responses.forEach((element) {
-        print('${element.name} - ${element.message}');
-      });
+      for (var res in fieldDatas.responses) {
+        print('${res.name} - ${res.message}');
+      }
     });
   });
   group("'22' PREAUTH", () {
@@ -378,9 +377,9 @@ void main() {
     });
     test("field data", () {
       final fieldDatas = FieldDataDecode(code: razerDecode.codesHex);
-      fieldDatas.responses.forEach((element) {
-        print('${element.name} - ${element.message}');
-      });
+      for (var res in fieldDatas.responses) {
+        print('${res.name} - ${res.message}');
+      }
     });
   });
   group("'23' PREAUTH COMPLETION", () {
@@ -419,9 +418,9 @@ void main() {
     });
     test("field data", () {
       final fieldDatas = FieldDataDecode(code: razerDecode.codesHex);
-      fieldDatas.responses.forEach((element) {
-        print('${element.name} - ${element.message}');
-      });
+      for (var res in fieldDatas.responses) {
+        print('${res.name} - ${res.message}');
+      }
     });
   });
   group("'40' VOID", () {
@@ -535,9 +534,9 @@ void main() {
     });
     test("field data", () {
       final fieldDatas = FieldDataDecode(code: razerDecode.codesHex);
-      fieldDatas.responses.forEach((element) {
-        print('${element.name} - ${element.message}');
-      });
+      for (var res in fieldDatas.responses) {
+        print('${res.name} - ${res.message}');
+      }
     });
   });
   group("'90' CARDHOLDER INQUIRY", () {
@@ -576,9 +575,9 @@ void main() {
     });
     test("field data", () {
       final fieldDatas = FieldDataDecode(code: razerDecode.codesHex);
-      fieldDatas.responses.forEach((element) {
-        print('${element.name} - ${element.message}');
-      });
+      for (var res in fieldDatas.responses) {
+        print('${res.name} - ${res.message}');
+      }
     });
   });
   group("'99' FORAWRDING MESSAGE", () {
@@ -617,9 +616,9 @@ void main() {
     });
     test("field data", () {
       final fieldDatas = FieldDataDecode(code: razerDecode.codesHex);
-      fieldDatas.responses.forEach((element) {
-        print('${element.name} - ${element.message}');
-      });
+      for (var res in fieldDatas.responses) {
+        print('${res.name} - ${res.message}');
+      }
     });
   });
   group("'FF' PING TRANSACTION", () {
@@ -657,9 +656,9 @@ void main() {
     });
     test("field data", () {
       final fieldDatas = FieldDataDecode(code: razerDecode.codesHex);
-      fieldDatas.responses.forEach((element) {
-        print('${element.name} - ${element.message}');
-      });
+      for (var res in fieldDatas.responses) {
+        print('${res.name} - ${res.message}');
+      }
     });
   });
   group("'XX' CANCEL TRANSACTION", () {
@@ -697,9 +696,9 @@ void main() {
     });
     test("field data", () {
       final fieldDatas = FieldDataDecode(code: razerDecode.codesHex);
-      fieldDatas.responses.forEach((element) {
-        print('${element.name} - ${element.message}');
-      });
+      for (var res in fieldDatas.responses) {
+        print('${res.name} - ${res.message}');
+      }
     });
   });
   group("Purchase 000012", () {
@@ -746,9 +745,9 @@ void main() {
     });
     test("field data", () {
       final fieldDatas = FieldDataDecode(code: razerDecode.codesHex);
-      fieldDatas.responses.forEach((element) {
-        print('${element.name} - ${element.message}');
-      });
+      for (var res in fieldDatas.responses) {
+        print('${res.name} - ${res.message}');
+      }
     });
   });
   group("Settlement 1", () {
@@ -771,9 +770,9 @@ void main() {
     });
     test("field data", () {
       final fieldDatas = FieldDataDecode(code: razerDecode.codesHex);
-      fieldDatas.responses.forEach((element) {
-        print('${element.name} - ${element.message}');
-      });
+      for (var res in fieldDatas.responses) {
+        print('${res.name} - ${res.message}');
+      }
     });
   });
 }

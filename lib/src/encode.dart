@@ -1,4 +1,4 @@
-import 'package:rms_terminal_sdk/main.dart';
+import 'package:rms_terminal_sdk/rms_terminal_sdk.dart';
 
 class TerminalEncode extends TerminalConfig {
   List<String> completionKey(

@@ -11,29 +11,73 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
-
-## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+# RMS Terminal SDK
 
 ## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+RMS Terminal Dark TCP Hex Connection Intergration
+* Encode
+* Decode
+## How to Use 
 
-## Usage
+** Step 1 **
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+Download or clone this repo by using the link below:
 
-```dart
-const like = 'sample';
+```
+https://github.com/ghaowei08/RMS-terminal-sdk.git
 ```
 
-## Additional information
+** Step 2 **
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+Go to "example" folder and execute the following command
+
+```
+flutter pub get 
+```
+## Additional information
+### Example
+Example in "example" folder 
+### Test Case
+Test Case in "test" folder
+### Folder Structure
+|-- CHANGELOG.md 
+|-- LICENSE
+|-- README.md
+|-- example
+|   |-- README.md 
+|   |-- lib
+|   |   |-- main.dart 
+|   |   '-- pages
+|   |       '-- homepage.dart
+|-- lib
+|   |-- rms_terminal_sdk.dart 
+|   '-- src
+|       |-- config.dart
+|       |-- decode.dart
+|       |-- encode.dart
+|       |-- field_data
+|       |   |-- custom_data
+|       |   |   |-- custom_data.dart 
+|       |   |   |-- custom_data_config.dart
+|       |   |   |-- custom_data_decode.dart
+|       |   |   '-- custom_data_encode.dart 
+|       |   |-- field_data.dart 
+|       |   |-- field_data_config.dart
+|       |   |-- field_data_decode.dart
+|       |   |-- field_data_encode.dart 
+|       |   '-- payment_type.dart
+|       |-- presentation_header
+|       |   |-- presentation_header.dart 
+|       |   |-- presentation_header_config.dart
+|       |   |-- presentation_header_decode.dart 
+|       |   '-- presentation_header_encode.dart 
+|       '-- transport_header
+|           |-- transport_header.dart 
+|           |-- transport_header_config.dart 
+|           |-- transport_header_decode.dart 
+|           '-- transport_header_encode.dart 
+|-- pubspec.yaml
+'-- test
+    |-- cases.dart
+    '-- decode_test.dart
