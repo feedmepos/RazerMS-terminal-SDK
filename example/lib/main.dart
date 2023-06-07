@@ -1,19 +1,13 @@
-import 'dart:io';
-
 import 'package:example/pages/homepage.dart';
 import 'package:flutter/material.dart';
 
 
 void main() async {
-  Socket socket = await Socket.connect('192.168.0.72', 8800);
-  runApp(MyApp(socket));
+  runApp(const MyApp());
 }
 class MyApp extends StatelessWidget {
-  final Socket socket;
+  const MyApp({Key? key}) : super(key: key);
 
-  const MyApp(
-    this.socket, {Key? key}
-  ) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(socket: socket,),
+      home: const HomePage(),
     );
   }
 }
