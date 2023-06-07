@@ -1,6 +1,6 @@
 name: rms_terminal_sdk
 description: Razer Merchant Service Terminal Dart TCP Connect
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/ghaowei08/rms_terminal_sdk.git
 
 environment:
