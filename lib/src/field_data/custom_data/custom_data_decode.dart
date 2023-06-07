@@ -1,4 +1,4 @@
-import 'package:rms_terminal_sdk/rms_terminal_sdk.dart';
+import '../field_data.dart';
 
 class CustomDecode extends CustomDataConfig {
   List<String> codes;

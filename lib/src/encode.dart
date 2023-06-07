@@ -1,4 +1,7 @@
-import 'package:rms_terminal_sdk/rms_terminal_sdk.dart';
+import 'config.dart';
+import 'field_data/field_data.dart';
+import 'presentation_header/presentation_header.dart';
+import 'transport_header/transport_header.dart';
 
 class TerminalEncode extends TerminalConfig {
   List<String> completionKey(

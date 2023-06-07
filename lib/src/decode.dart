@@ -7,8 +7,18 @@ class TerminalDecode extends TerminalConfig {
   TerminalDecode({
     required this.codes,
   });
+
   // Format
   List<String> get codesHex => codes.map((e) => numberToHex(e)).toList();
+
+  bool get isAck {
+    return codes.length == 1 && codesHex.first == ackKey;
+  }
+
+   bool get isNack {
+    return codesHex.length == 1 && codesHex.first == nackKey;
+  }
+
   // Basic
   String get codesStartKey => codesHex[0];
   String get codesEndKey => codesHex[codesHex.length - 2];
@@ -23,6 +33,8 @@ class TerminalDecode extends TerminalConfig {
   bool get lrcVal => generateLrc(codesLrcMessage) == codesLrcKey;
 
   FieldDataDecode get fieldDatas => FieldDataDecode(code: codesHex);
+
+  FieldDateResponseFormat get response => fieldDatas.format;
 
   bool validation() {
     if (startKeyVal && endKeyVal && lengthVal && lrcVal) {

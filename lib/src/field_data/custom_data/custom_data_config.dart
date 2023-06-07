@@ -1,4 +1,4 @@
-import 'package:rms_terminal_sdk/rms_terminal_sdk.dart';
+import '../../config.dart';
 
 class Tag {
   String key;

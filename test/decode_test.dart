@@ -1,5 +1,8 @@
-import 'package:rms_terminal_sdk/rms_terminal_sdk.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:rms_terminal_sdk/src/decode.dart';
+import 'package:rms_terminal_sdk/src/field_data/field_data.dart';
+import 'package:rms_terminal_sdk/src/presentation_header/presentation_header.dart';
+import 'package:rms_terminal_sdk/src/transport_header/transport_header.dart';
 
 import 'cases.dart';
 
@@ -476,7 +479,7 @@ void main() {
       expect(presentationHeaderCard.presentationHeader,
           ['0x31', '0x31', '0x34', '0x30', '0x30', '0x30', '0x30', '0x1c']);
       expect(presentationHeaderCard.transactionCode, '40');
-      expect(presentationHeaderCard.transactionName, TransactionName.salesVoid);
+      expect(presentationHeaderCard.transactionName, TransactionName.refund);
 
       final presentationHeaderEwallet =
           PresentationHeaderDecode(codes: razerDecodeCard.codesHex);
@@ -484,7 +487,7 @@ void main() {
           ['0x31', '0x31', '0x34', '0x30', '0x30', '0x30', '0x30', '0x1c']);
       expect(presentationHeaderEwallet.transactionCode, '40');
       expect(
-          presentationHeaderEwallet.transactionName, TransactionName.salesVoid);
+          presentationHeaderEwallet.transactionName, TransactionName.refund);
     });
     test("field data", () {
       final fieldDatasCard = FieldDataDecode(code: razerDecodeCard.codesHex);
