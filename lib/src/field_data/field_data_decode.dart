@@ -194,7 +194,20 @@ class FieldDateResponse {
     required this.message,
   });
 
-  String? get toMap => '"${name.toJson()}":"${message.trim()}"';
+  String get formatedMessage {
+    List<String> codes =
+        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 '
+            .split('');
+    var msg = '';
+    for (var i = 0; i < message.length; i++) {
+      if (codes.any((element) => element == message[i])) {
+        msg += message[i];
+      }
+    }
+    return msg;
+  }
+
+  get toMap => '"${name.toJson()}":"$formatedMessage"';
 }
 
 class FieldDecode extends FieldDataConfig {
@@ -262,7 +275,6 @@ class FieldDataDecode extends FieldDataConfig {
 
   FieldDateResponseFormat get format {
     final source = '{ ${responses.map((e) => e.toMap).toList().join(',')}}';
-    print(source);
     return FieldDateResponseFormat.fromJson(source);
   }
 
