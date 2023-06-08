@@ -233,13 +233,13 @@ class FieldDecode extends FieldDataConfig {
 }
 
 class FieldDataDecode extends FieldDataConfig {
-  List<String> code;
+  List<String> codes;
 
   FieldDataDecode({
-    required this.code,
+    required this.codes,
   });
 
-  List<String> get fieldData => code.sublist(21, code.length - 2);
+  List<String> get fieldData => codes.sublist(21, codes.length - 2);
 
   List<List<String>> get grouped => splitFieldDatas(fieldData);
 
@@ -248,7 +248,11 @@ class FieldDataDecode extends FieldDataConfig {
 
   FieldDateResponseFormat get format {
     final source = '{ ${responses.map((e) => e.toMap).toList().join(',')}}';
-    return FieldDateResponseFormat.fromJson(source);
+    final v = FieldDateResponseFormat.fromJson(source);
+    if (v.cardIssueName == "Wallet") {
+      v.invoiceNo = v.customData?.walletInvoiceNumber;
+    }
+    return v;
   }
 
   List<List<String>> splitFieldDatas(List<String> data) {
