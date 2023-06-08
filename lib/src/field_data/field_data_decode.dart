@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:rms_terminal_sdk/rms_terminal_sdk.dart';
-
 import 'field_data.dart';
 
 class FieldDateResponseFormat {
@@ -37,7 +35,7 @@ class FieldDateResponseFormat {
   String? tsi;
   String? tvr;
   String? cardEntryMode;
-  String? customData;
+  CustomDateResponseFormat? customData;
 
   FieldDateResponseFormat({
     this.payAccountId,
@@ -107,84 +105,50 @@ class FieldDateResponseFormat {
       'tsi': tsi,
       'tvr': tvr,
       'cardEntryMode': cardEntryMode,
-      'customData': customData,
+      'customData': customData?.toMap(),
     };
   }
 
   factory FieldDateResponseFormat.fromMap(Map<String, dynamic> map) {
     return FieldDateResponseFormat(
-      payAccountId:
-          map['payAccountId'] != null ? map['payAccountId'] as String : null,
-      approvalCode:
-          map['approvalCode'] != null ? map['approvalCode'] as String : null,
-      reponseText:
-          map['reponseText'] != null ? map['reponseText'] as String : null,
-      transactionId:
-          map['transactionId'] != null ? map['transactionId'] as String : null,
-      transactionDate: map['transactionDate'] != null
-          ? map['transactionDate'] as String
-          : null,
-      transactionTime: map['transactionTime'] != null
-          ? map['transactionTime'] as String
-          : null,
-      retrievalReferenceNo: map['retrievalReferenceNo'] != null
-          ? map['retrievalReferenceNo'] as String
-          : null,
-      terminalId:
-          map['terminalId'] != null ? map['terminalId'] as String : null,
-      merchantReceiptFooter: map['merchantReceiptFooter'] != null
-          ? map['merchantReceiptFooter'] as String
-          : null,
-      customerReceiptFooter: map['customerReceiptFooter'] != null
-          ? map['customerReceiptFooter'] as String
-          : null,
-      encryptedCardNo: map['encryptedCardNo'] != null
-          ? map['encryptedCardNo'] as String
-          : null,
+      payAccountId: map['payAccountId'] != null ? map['payAccountId'] as String : null,
+      approvalCode: map['approvalCode'] != null ? map['approvalCode'] as String : null,
+      reponseText: map['reponseText'] != null ? map['reponseText'] as String : null,
+      transactionId: map['transactionId'] != null ? map['transactionId'] as String : null,
+      transactionDate: map['transactionDate'] != null ? map['transactionDate'] as String : null,
+      transactionTime: map['transactionTime'] != null ? map['transactionTime'] as String : null,
+      retrievalReferenceNo: map['retrievalReferenceNo'] != null ? map['retrievalReferenceNo'] as String : null,
+      terminalId: map['terminalId'] != null ? map['terminalId'] as String : null,
+      merchantReceiptFooter: map['merchantReceiptFooter'] != null ? map['merchantReceiptFooter'] as String : null,
+      customerReceiptFooter: map['customerReceiptFooter'] != null ? map['customerReceiptFooter'] as String : null,
+      encryptedCardNo: map['encryptedCardNo'] != null ? map['encryptedCardNo'] as String : null,
       cardNo: map['cardNo'] != null ? map['cardNo'] as String : null,
-      expiryDate:
-          map['expiryDate'] != null ? map['expiryDate'] as String : null,
-      cardIssueDate:
-          map['cardIssueDate'] != null ? map['cardIssueDate'] as String : null,
-      memberExpiryDate: map['memberExpiryDate'] != null
-          ? map['memberExpiryDate'] as String
-          : null,
-      accountBalance: map['accountBalance'] != null
-          ? map['accountBalance'] as String
-          : null,
+      expiryDate: map['expiryDate'] != null ? map['expiryDate'] as String : null,
+      cardIssueDate: map['cardIssueDate'] != null ? map['cardIssueDate'] as String : null,
+      memberExpiryDate: map['memberExpiryDate'] != null ? map['memberExpiryDate'] as String : null,
+      accountBalance: map['accountBalance'] != null ? map['accountBalance'] as String : null,
       amount: map['amount'] != null ? map['amount'] as String : null,
       batchNo: map['batchNo'] != null ? map['batchNo'] as String : null,
       traceNo: map['traceNo'] != null ? map['traceNo'] as String : null,
       invoiceNo: map['invoiceNo'] != null ? map['invoiceNo'] as String : null,
-      merchantName:
-          map['merchantName'] != null ? map['merchantName'] as String : null,
-      merchantNo:
-          map['merchantNo'] != null ? map['merchantNo'] as String : null,
-      cardIssueName:
-          map['cardIssueName'] != null ? map['cardIssueName'] as String : null,
+      merchantName: map['merchantName'] != null ? map['merchantName'] as String : null,
+      merchantNo: map['merchantNo'] != null ? map['merchantNo'] as String : null,
+      cardIssueName: map['cardIssueName'] != null ? map['cardIssueName'] as String : null,
       cardLabel: map['cardLabel'] != null ? map['cardLabel'] as String : null,
-      cardHolderName: map['cardHolderName'] != null
-          ? map['cardHolderName'] as String
-          : null,
+      cardHolderName: map['cardHolderName'] != null ? map['cardHolderName'] as String : null,
       aid: map['aid'] != null ? map['aid'] as String : null,
-      applicationProfile: map['applicationProfile'] != null
-          ? map['applicationProfile'] as String
-          : null,
+      applicationProfile: map['applicationProfile'] != null ? map['applicationProfile'] as String : null,
       cid: map['cid'] != null ? map['cid'] as String : null,
       tsi: map['tsi'] != null ? map['tsi'] as String : null,
       tvr: map['tvr'] != null ? map['tvr'] as String : null,
-      cardEntryMode:
-          map['cardEntryMode'] != null ? map['cardEntryMode'] as String : null,
-      customData:
-          map['customData'] != null ? map['customData'] as String : null,
+      cardEntryMode: map['cardEntryMode'] != null ? map['cardEntryMode'] as String : null,
+      customData: map['customData'] != null ? CustomDateResponseFormat.fromMap(map['customData'] as Map<String,dynamic>) : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory FieldDateResponseFormat.fromJson(String source) =>
-      FieldDateResponseFormat.fromMap(
-          json.decode(source) as Map<String, dynamic>);
+  factory FieldDateResponseFormat.fromJson(String source) => FieldDateResponseFormat.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
 class FieldDateResponse {
@@ -209,7 +173,14 @@ class FieldDateResponse {
     return msg;
   }
 
-  get toMap => '"${name.toJson()}":"$formatedMessage"';
+  get toMap {
+    if(name == FieldName.customData){
+      return '"${name.toJson()}":{$message}';
+    }
+    else{
+      return '"${name.toJson()}":"$formatedMessage"';
+    }
+  }
 }
 
 class FieldDecode extends FieldDataConfig {
@@ -241,7 +212,7 @@ class FieldDecode extends FieldDataConfig {
     try {
       final messageList = codes.sublist(4, codes.length - 1);
       if (name == FieldName.customData) {
-        return CustomDataDecode(codes: messageList).reponses;
+        return CustomDataDecode(codes: messageList).responses;
       } else {
         switch (type) {
           case FieldType.ascii:

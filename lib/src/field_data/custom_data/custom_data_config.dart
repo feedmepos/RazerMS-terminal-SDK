@@ -1,41 +1,79 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import '../../config.dart';
 
 class Tag {
   String key;
   String remark;
+  String name;
 
   Tag({
     required this.key,
     required this.remark,
+    required this.name,
   });
 }
 
-class CustomDataConfig extends TerminalConfig{
+class CustomDataConfig extends TerminalConfig {
   final List<Tag> tagList = [
-    Tag(key: "0xB102", remark: "OTSR redemption point"),
-    Tag(key: "0xB103", remark: "OTSR redemption amount"),
-    Tag(key: "0xB104", remark: "OTSR net sale amount"),
-    Tag(key: "0xB105", remark: "OTSR balance point"),
-    Tag(key: "0xB601", remark: "Cashback convenience fee"),
-    Tag(key: "0xB901", remark: "Wallet store ID"),
-    Tag(key: "0xB902", remark: "Wallet terminal code"),
-    Tag(key: "0xB903", remark: "Wallet invoice number"),
-    Tag(key: "0xB904", remark: "Wallet payer ID"),
-    Tag(key: "0xB905", remark: "Wallet reference ID"),
-    Tag(key: "0xB906", remark: "Wallet transaction ID"),
-    Tag(key: "0xB907", remark: "Wallet currency code"),
-    Tag(key: "0xB908", remark: "Wallet amount"),
-    Tag(key: "0xB909", remark: "Wallet exchange rate"),
-    Tag(key: "0xB910", remark: "Wallet product name (Alipay, WeChat CN, WeChat MY, Boost, TNG WALLET, GrabPay, Razer Pay, Maybank, etc.)"),
-    Tag(key: "0xB911", remark: "Wallet response code"),
+    Tag(
+        key: "0xb102",
+        remark: "OTSR redemption point",
+        name: "redemptionPoint"),
+    Tag(
+        key: "0xb103",
+        remark: "OTSR redemption amount",
+        name: "redemptionAmount"),
+    Tag(key: "0xb104", remark: "OTSR net sale amount", name: "netSaleAmount"),
+    Tag(key: "0xb105", remark: "OTSR balance point", name: "balancePoint"),
+    Tag(
+        key: "0xb601",
+        remark: "Cashback convenience fee",
+        name: "cashbackConvenienceFee"),
+    Tag(key: "0xb901", remark: "Wallet store ID", name: "walletStoreId"),
+    Tag(
+        key: "0xb902",
+        remark: "Wallet terminal code",
+        name: "walletTerminalCode"),
+    Tag(
+        key: "0xb903",
+        remark: "Wallet invoice number",
+        name: "walletInvoiceNumber"),
+    Tag(key: "0xb904", remark: "Wallet payer ID", name: "walletPayerId"),
+    Tag(
+        key: "0xb905",
+        remark: "Wallet reference ID",
+        name: "walletReferenceId"),
+    Tag(
+        key: "0xb906",
+        remark: "Wallet transaction ID",
+        name: "walletTransactionId"),
+    Tag(
+        key: "0xb907",
+        remark: "Wallet currency code",
+        name: "walletCurrencyCode"),
+    Tag(key: "0xb908", remark: "Wallet amount", name: "walletAmount"),
+    Tag(
+        key: "0xb909",
+        remark: "Wallet exchange rate",
+        name: "walletExchangeRate"),
+    Tag(
+        key: "0xb910",
+        remark:
+            "Wallet product name (Alipay, WeChat CN, WeChat MY, Boost, TNG WALLET, GrabPay, Razer Pay, Maybank, etc.)",
+        name: "walletProductName"),
+    Tag(
+        key: "0xb911",
+        remark: "Wallet response code",
+        name: "walletResponseCode"),
   ];
 
-   Tag byKey(String key) {
+  Tag byKey(String key) {
     try {
       return tagList.firstWhere((element) => element.key == key.toLowerCase());
     } catch (err) {
-      return Tag(key: key, remark: "Unknown");
+      return Tag(key: key, remark: "Unknown", name: "Unknown");
     }
   }
 }
-
