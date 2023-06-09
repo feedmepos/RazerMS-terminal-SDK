@@ -1,5 +1,22 @@
 import 'package:rms_terminal_sdk/src/config.dart';
 
+
+enum ResponseName{
+  approved,
+  declined,
+  timeout,
+  refer
+}
+
+
+class Response {
+  ResponseName name;
+  String code;
+
+  Response({required this.name, required this.code});
+}
+
+
 enum TransactionName {
   verifyPayAccountID,
   cardDetailInquiry,
@@ -33,6 +50,14 @@ class Transaction {
 class PresentationHeaderConfig extends TerminalConfig {
   String separatorKey = '0x1c';
 
+
+List<Response> responseList = [
+    Response(name: ResponseName.approved, code: "00"),
+    Response(name: ResponseName.declined, code: "ND"),
+    Response(name: ResponseName.timeout, code: "TO"),
+    Response(name: ResponseName.refer, code: "XX"),
+  ];
+
   List<Transaction> transactionList = [
     Transaction(name: TransactionName.verifyPayAccountID, code: "00"),
     Transaction(name: TransactionName.cardDetailInquiry, code: "10"),
@@ -56,5 +81,7 @@ class PresentationHeaderConfig extends TerminalConfig {
     Transaction(name: TransactionName.cancel, code: "XX"),
   ];
 
-  TransactionName byCode(String code) => transactionList.firstWhere((element) => element.code == code).name;
+  ResponseName byResponseCode(String code) => responseList.firstWhere((element) => element.code == code).name;
+  
+  TransactionName byTransactionCode(String code) => transactionList.firstWhere((element) => element.code == code).name;
 }

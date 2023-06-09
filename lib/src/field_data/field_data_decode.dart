@@ -6,7 +6,7 @@ import 'field_data.dart';
 class FieldDateResponseFormat {
   String? payAccountId;
   String? approvalCode;
-  String? reponseText;
+  String? responseText;
   String? transactionId;
   String? transactionDate;
   String? transactionTime;
@@ -40,7 +40,7 @@ class FieldDateResponseFormat {
   FieldDateResponseFormat({
     this.payAccountId,
     this.approvalCode,
-    this.reponseText,
+    this.responseText,
     this.transactionId,
     this.transactionDate,
     this.transactionTime,
@@ -76,7 +76,7 @@ class FieldDateResponseFormat {
     return <String, dynamic>{
       'payAccountId': payAccountId,
       'approvalCode': approvalCode,
-      'reponseText': reponseText,
+      'reponseText': responseText,
       'transactionId': transactionId,
       'transactionDate': transactionDate,
       'transactionTime': transactionTime,
@@ -113,7 +113,7 @@ class FieldDateResponseFormat {
     return FieldDateResponseFormat(
       payAccountId: map['payAccountId'] != null ? map['payAccountId'] as String : null,
       approvalCode: map['approvalCode'] != null ? map['approvalCode'] as String : null,
-      reponseText: map['reponseText'] != null ? map['reponseText'] as String : null,
+      responseText: map['reponseText'] != null ? map['reponseText'] as String : null,
       transactionId: map['transactionId'] != null ? map['transactionId'] as String : null,
       transactionDate: map['transactionDate'] != null ? map['transactionDate'] as String : null,
       transactionTime: map['transactionTime'] != null ? map['transactionTime'] as String : null,

@@ -8,7 +8,8 @@ import 'package:rms_terminal_sdk/src/decode.dart';
 import 'package:rms_terminal_sdk/src/encode.dart';
 import 'package:rms_terminal_sdk/src/field_data/field_data.dart';
 
-export 'package:rms_terminal_sdk/src/field_data/field_data.dart';
+export 'package:rms_terminal_sdk/src/field_data/field_data_decode.dart';
+export 'package:rms_terminal_sdk/src/presentation_header/presentation_header_config.dart';
 export 'package:rms_terminal_sdk/src/field_data/payment_type.dart';
 
 class RMSTerminalSDK {

@@ -26,15 +26,15 @@ class TerminalDecode extends TerminalConfig {
   String get codesLrcKey => codesHex[codesHex.length - 1];
   int get codesLength => hexLength([codesHex[1], codesHex[2]]);
   // Validation
-  List<String> get codesLrcMessage => codesHex.sublist(1, codesHex.length - 1);
-
   bool get startKeyVal => startKey == codesStartKey;
   bool get endKeyVal => endKey == codesEndKey;
   bool get lengthVal => codesLength == (codesHex.length - 5);
-
+  List<String> get codesLrcMessage => codesHex.sublist(1, codesHex.length - 1);
   bool get lrcVal => generateLrc(codesLrcMessage) == codesLrcKey;
 
   PresentationHeaderDecode get presentationHeader => PresentationHeaderDecode(codes: codesHex);
+
+  ResponseName get status => PresentationHeaderDecode(codes: codesHex).responseName;
 
   FieldDataDecode get fieldDatas => FieldDataDecode(codes: codesHex);
 
