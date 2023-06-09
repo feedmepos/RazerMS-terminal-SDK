@@ -22,9 +22,5 @@ class PresentationHeaderDecode extends PresentationHeaderConfig {
       ].map((e) => int.parse(e)).toList());
 
 
-  ResponseName get responseName => byResponseCode(responseCode);
-
   TransactionName get transactionName => byTransactionCode(transactionCode);
-
-
 }

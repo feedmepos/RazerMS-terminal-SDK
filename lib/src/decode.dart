@@ -34,15 +34,9 @@ class TerminalDecode extends TerminalConfig {
 
   PresentationHeaderDecode get presentationHeader => PresentationHeaderDecode(codes: codesHex);
 
-  ResponseName get status => PresentationHeaderDecode(codes: codesHex).responseName;
-
   FieldDataDecode get fieldDatas => FieldDataDecode(codes: codesHex);
 
-  FieldDateResponseFormat get response {
-    var v = fieldDatas.format;
-    v.status = status;
-    return v;
-  }
+  FieldDateResponseFormat get response => fieldDatas.format;
 
   bool validation() {
     if (startKeyVal && endKeyVal && lengthVal && lrcVal) {
