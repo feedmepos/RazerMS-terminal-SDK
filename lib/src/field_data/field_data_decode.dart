@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:rms_terminal_sdk/rms_terminal_sdk.dart';
+
 import 'field_data.dart';
 
 class FieldDateResponseFormat {
@@ -35,6 +37,7 @@ class FieldDateResponseFormat {
   String? tsi;
   String? tvr;
   String? cardEntryMode;
+  ResponseName? status;
   CustomDateResponseFormat? customData;
 
   FieldDateResponseFormat({
@@ -69,6 +72,7 @@ class FieldDateResponseFormat {
     this.tsi,
     this.tvr,
     this.cardEntryMode,
+    this.status,
     this.customData,
   });
 
@@ -105,6 +109,7 @@ class FieldDateResponseFormat {
       'tsi': tsi,
       'tvr': tvr,
       'cardEntryMode': cardEntryMode,
+      'status': status,
       'customData': customData?.toMap(),
     };
   }
@@ -142,6 +147,7 @@ class FieldDateResponseFormat {
       tsi: map['tsi'] != null ? map['tsi'] as String : null,
       tvr: map['tvr'] != null ? map['tvr'] as String : null,
       cardEntryMode: map['cardEntryMode'] != null ? map['cardEntryMode'] as String : null,
+      status: map['status'] != null ? map['status'] as ResponseName : null,
       customData: map['customData'] != null ? CustomDateResponseFormat.fromMap(map['customData'] as Map<String,dynamic>) : null,
     );
   }
