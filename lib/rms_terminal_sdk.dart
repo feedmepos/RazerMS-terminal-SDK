@@ -74,26 +74,40 @@ class RMSTerminalSDK {
   }
 
   Future<FieldDateResponseFormat?> purchase(int amount,
-      {PaymentBy by = PaymentBy.creditCard, bool receipt = true}) async {
+      {String transactionId = '00000000000000000000',
+      PaymentBy by = PaymentBy.creditCard,
+      bool receipt = true}) async {
     return await _sendWithResponse(TerminalEncode()
-        .purchase("00000000000000000001", amount, 0, by: by, receipt: receipt));
+        .purchase(transactionId, amount, 0, by: by, receipt: receipt));
+  }
+
+  Future<FieldDateResponseFormat?> lastTransactionInquiry(
+    int amount, {
+    String transactionId = '00000000000000000000',
+  }) async {
+    return await _sendWithResponse(
+        TerminalEncode().lastTransactionInquiry(transactionId));
   }
 
   Future<FieldDateResponseFormat?> refund(String invoiceNo,
-      {PaymentBy by = PaymentBy.creditCard, bool receipt = true}) async {
-    return await _sendWithResponse(TerminalEncode().salesVoid(
-        "00000000000000000001", invoiceNo,
-        by: by, receipt: receipt));
+      {String transactionId = '00000000000000000000',
+      PaymentBy by = PaymentBy.creditCard,
+      bool receipt = true}) async {
+    return await _sendWithResponse(TerminalEncode()
+        .salesVoid(transactionId, invoiceNo, by: by, receipt: receipt));
   }
 
   Future<FieldDateResponseFormat?> settlement(
-      {bool receipt = true, bool forseSettlement = true}) async {
+      {String transactionId = '00000000000000000000',
+      bool receipt = true,
+      bool forseSettlement = true}) async {
     return await _sendWithResponse(
-        TerminalEncode().settlement("00000000000000000001", receipt: receipt));
+        TerminalEncode().settlement(transactionId, receipt: receipt));
   }
 
-  Future<FieldDateResponseFormat?> cancel() async {
-    return await _sendWithResponse(
-        TerminalEncode().cancel("00000000000000000001"));
+  Future<FieldDateResponseFormat?> cancel({
+    String transactionId = '00000000000000000000',
+  }) async {
+    return await _sendWithResponse(TerminalEncode().cancel(transactionId));
   }
 }
