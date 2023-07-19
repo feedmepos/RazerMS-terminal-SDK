@@ -1,3 +1,4 @@
+## 0.0.2
+* Add time limit function for waiting every response
 ## 0.0.1
-
-* TODO: Describe initial release.
+* Finish RMS terminal SDK
