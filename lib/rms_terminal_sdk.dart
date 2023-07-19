@@ -55,13 +55,15 @@ class RMSTerminalSDK {
     _socket!.add(data);
   }
 
-  Future<FieldDateResponseFormat> _sendWithResponse(List<String> msg) async {
+  Future<FieldDataResponseFormat?> _sendWithResponse(List<String> msg) async {
     _send(msg);
     final listener = _stream.stream.listen((event) {});
-    final completer = Completer<FieldDateResponseFormat>();
+    final completer = Completer<FieldDataResponseFormat>();
+    Timer t  = Timer(const Duration(seconds: 60), () => completer.complete(null));
     listener.onData((data) async {
       if (!data.isAck && !data.isNack) {
         _send([data.ackKey]);
+        t.cancel();
         await listener.cancel();
         completer.complete(data.response);
       }
@@ -69,11 +71,11 @@ class RMSTerminalSDK {
     return completer.future;
   }
 
-  Future<FieldDateResponseFormat?> getCardInfo() async {
+  Future<FieldDataResponseFormat?> getCardInfo() async {
     return await _sendWithResponse(TerminalEncode().cardDetailInquiry());
   }
 
-  Future<FieldDateResponseFormat?> purchase(int amount,
+  Future<FieldDataResponseFormat?> purchase(int amount,
       {String transactionId = '00000000000000000000',
       PaymentBy by = PaymentBy.creditCard,
       bool receipt = true}) async {
@@ -81,7 +83,7 @@ class RMSTerminalSDK {
         .purchase(transactionId, amount, 0, by: by, receipt: receipt));
   }
 
-  Future<FieldDateResponseFormat?> lastTransactionInquiry(
+  Future<FieldDataResponseFormat?> lastTransactionInquiry(
     int amount, {
     String transactionId = '00000000000000000000',
   }) async {
@@ -89,7 +91,7 @@ class RMSTerminalSDK {
         TerminalEncode().lastTransactionInquiry(transactionId));
   }
 
-  Future<FieldDateResponseFormat?> refund(String invoiceNo,
+  Future<FieldDataResponseFormat?> refund(String invoiceNo,
       {String transactionId = '00000000000000000000',
       PaymentBy by = PaymentBy.creditCard,
       bool receipt = true}) async {
@@ -97,7 +99,7 @@ class RMSTerminalSDK {
         .salesVoid(transactionId, invoiceNo, by: by, receipt: receipt));
   }
 
-  Future<FieldDateResponseFormat?> settlement(
+  Future<FieldDataResponseFormat?> settlement(
       {String transactionId = '00000000000000000000',
       bool receipt = true,
       bool forseSettlement = true}) async {
@@ -105,7 +107,7 @@ class RMSTerminalSDK {
         TerminalEncode().settlement(transactionId, receipt: receipt));
   }
 
-  Future<FieldDateResponseFormat?> cancel({
+  Future<FieldDataResponseFormat?> cancel({
     String transactionId = '00000000000000000000',
   }) async {
     return await _sendWithResponse(TerminalEncode().cancel(transactionId));
