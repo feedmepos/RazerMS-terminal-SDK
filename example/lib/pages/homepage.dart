@@ -1,6 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:rms_terminal_sdk/rms_terminal_sdk.dart';
+
+class TextData {
+  String name;
+  String? value;
+
+  TextData(this.name, {this.value});
+}
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,55 +17,219 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final razer = RMSTerminalSDK();
+  TextEditingController ipController = TextEditingController();
+  TextEditingController invoiceNoController = TextEditingController();
+  FieldDataResponseFormat? fieldData;
 
   @override
   void initState() {
     super.initState();
+    ipController = TextEditingController(text: '192.168.0.52');
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('TCP Client Demo'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.info_outline),
-            onPressed: () {},
-          )
+    final textData = [
+      TextData('Pay Account Id:', value: fieldData?.payAccountId),
+      TextData('Approve Code:', value: fieldData?.approvalCode),
+      TextData('Response Text:', value: fieldData?.responseText),
+      TextData('Transaction Id:', value: fieldData?.transactionId),
+      TextData('Transaction Date:', value: fieldData?.transactionDate),
+      TextData('Transaction Time:', value: fieldData?.transactionTime),
+      TextData('Retrieval Reference No:',
+          value: fieldData?.retrievalReferenceNo),
+      TextData('Terminal Id:', value: fieldData?.terminalId),
+      TextData('Encrypt Card No:', value: fieldData?.encryptedCardNo),
+      TextData('Expiry Date:', value: fieldData?.expiryDate),
+      TextData('Card Issue Date:', value: fieldData?.cardIssueDate),
+      TextData('Member Expiry Date:', value: fieldData?.memberExpiryDate),
+      TextData('Account Balance:', value: fieldData?.accountBalance),
+      TextData('Amount:', value: fieldData?.amount),
+      TextData('Batch No:', value: fieldData?.batchNo),
+      TextData('Trace No:', value: fieldData?.traceNo),
+      TextData('Invoice No:', value: fieldData?.invoiceNo),
+      TextData('Merchant Name:', value: fieldData?.merchantName),
+      TextData('Merchant No:', value: fieldData?.merchantNo),
+      TextData('Card Issue Name:', value: fieldData?.cardIssueName),
+      TextData('Card Label:', value: fieldData?.cardLabel),
+      TextData('Card Holder name:', value: fieldData?.cardHolderName),
+      TextData('AID:', value: fieldData?.aid),
+      TextData('Application Profile:', value: fieldData?.applicationProfile),
+      TextData('CID:', value: fieldData?.cid),
+      TextData('TSI:', value: fieldData?.tsi),
+      TextData('TVR:', value: fieldData?.tvr),
+      TextData('Card Entry Mode:', value: fieldData?.cardEntryMode),
+    ];
+
+    final leftSide = Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 75,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 250,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      textAlign: TextAlign.center,
+                      controller: ipController,
+                      decoration: const InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 1.0),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0))),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 1.0),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15.0))),
+                        hintText: 'IP Address',
+                      ),
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    try {
+                      await razer.connect(ipController.text);
+                    } catch (err) {
+                      print('Connected');
+                    }
+                  },
+                  child: const Text("Connect"),
+                ),
+                TextButton(
+                  onPressed: () => razer.disconnect(),
+                  child: const Text("Disconnect"),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            width: 250,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                textAlign: TextAlign.center,
+                controller: invoiceNoController,
+                decoration: const InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 1.0),
+                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                  hintText: 'Invoice No',
+                ),
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              TextButton(
+                onPressed: () =>
+                    razer.settlement().then((value) => fieldData = value),
+                child: const Text("Settlement"),
+              ),
+              TextButton(
+                onPressed: () => razer.purchase(100).then((value) {
+                  setState(() {
+                    fieldData = value;
+                    invoiceNoController =
+                        TextEditingController(text: fieldData?.invoiceNo ?? '');
+                  });
+                }),
+                child: const Text("Purchase"),
+              ),
+              TextButton(
+                onPressed: () => razer.refund(invoiceNoController.text).then((value) {
+                  setState(() {
+                    fieldData = value;
+                    invoiceNoController =
+                        TextEditingController(text: fieldData?.invoiceNo ?? '');
+                  });
+                }),
+                child: const Text("Refund"),
+              ),
+              TextButton(
+                onPressed: () => razer.cancel(),
+                child: const Text("Cancel"),
+              ),
+            ],
+          ),
         ],
       ),
-      body: Center(
+    );
+
+    final rightSide = Expanded(
+      flex: 2,
+      child: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            TextButton(
-              onPressed: () => razer.connect("192.168.68.109"),
-              child: const Text("Connect"),
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                border: Border.all(width: 1, color: Colors.grey),
+              ),
+              child: Row(
+                children: const [
+                  SizedBox(
+                      width: 250,
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          'Data',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      )),
+                ],
+              ),
             ),
-            TextButton(
-              onPressed: () => razer.disconnect(),
-              child: const Text("Disconnect"),
-            ),
-            TextButton(
-              onPressed: () => razer.settlement(),
-              child: const Text("Settlement"),
-            ),
-            TextButton(
-              onPressed: () => razer.purchase(100),
-              child: const Text("Purchase"),
-            ),
-            TextButton(
-              onPressed: () => razer.refund("000010"),
-              child: const Text("Refund"),
-            ),
-            TextButton(
-              onPressed: () => razer.cancel(),
-              child: const Text("Cancel"),
-            ),
+            ...textData
+                .where((element) => element.value != null)
+                .map(
+                  (e) => Container(
+                    height: 50,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.grey)),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 250,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              e.name,
+                              textAlign: TextAlign.left,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        Text(
+                          e.value!,
+                          textAlign: TextAlign.left,
+                        )
+                      ],
+                    ),
+                  ),
+                )
+                .toList(),
           ],
         ),
       ),
+    );
+
+    return Row(
+      children: [leftSide, rightSide],
     );
   }
 }
