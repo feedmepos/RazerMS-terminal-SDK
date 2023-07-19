@@ -36,7 +36,7 @@ class TerminalDecode extends TerminalConfig {
 
   FieldDataDecode get fieldDatas => FieldDataDecode(codes: codesHex);
 
-  FieldDateResponseFormat get response => fieldDatas.format;
+  FieldDataResponseFormat get response => fieldDatas.format;
 
   bool validation() {
     if (startKeyVal && endKeyVal && lengthVal && lrcVal) {

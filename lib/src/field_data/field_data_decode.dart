@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'field_data.dart';
 
-class FieldDateResponseFormat {
+class FieldDataResponseFormat {
   String? payAccountId;
   String? approvalCode;
   String? responseText;
@@ -37,7 +37,7 @@ class FieldDateResponseFormat {
   String? cardEntryMode;
   CustomDateResponseFormat? customData;
 
-  FieldDateResponseFormat({
+  FieldDataResponseFormat({
     this.payAccountId,
     this.approvalCode,
     this.responseText,
@@ -109,8 +109,8 @@ class FieldDateResponseFormat {
     };
   }
 
-  factory FieldDateResponseFormat.fromMap(Map<String, dynamic> map) {
-    return FieldDateResponseFormat(
+  factory FieldDataResponseFormat.fromMap(Map<String, dynamic> map) {
+    return FieldDataResponseFormat(
       payAccountId: map['payAccountId'] != null ? map['payAccountId'] as String : null,
       approvalCode: map['approvalCode'] != null ? map['approvalCode'] as String : null,
       responseText: map['reponseText'] != null ? map['reponseText'] as String : null,
@@ -148,7 +148,7 @@ class FieldDateResponseFormat {
 
   String toJson() => json.encode(toMap());
 
-  factory FieldDateResponseFormat.fromJson(String source) => FieldDateResponseFormat.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory FieldDataResponseFormat.fromJson(String source) => FieldDataResponseFormat.fromMap(json.decode(source) as Map<String, dynamic>);
 }
 
 class FieldDateResponse {
@@ -246,9 +246,9 @@ class FieldDataDecode extends FieldDataConfig {
   List<FieldDateResponse> get responses =>
       grouped.map((e) => FieldDecode(codes: e).response).toList();
 
-  FieldDateResponseFormat get format {
+  FieldDataResponseFormat get format {
     final source = '{ ${responses.map((e) => e.toMap).toList().join(',')}}';
-    final v = FieldDateResponseFormat.fromJson(source);
+    final v = FieldDataResponseFormat.fromJson(source);
     if (v.cardIssueName == "Wallet") {
       v.invoiceNo = v.customData?.walletInvoiceNumber;
     }
