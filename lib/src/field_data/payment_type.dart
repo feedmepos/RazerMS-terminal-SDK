@@ -28,8 +28,8 @@ class PaymentType {
 
   String get code {
     switch (by) {
-      case PaymentBy.all:
-        return "00";
+      // case PaymentBy.all:
+      //   return "00";
       case PaymentBy.eWallet:
         return "02";
       case PaymentBy.creditCard:
