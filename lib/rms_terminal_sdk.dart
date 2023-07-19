@@ -58,7 +58,7 @@ class RMSTerminalSDK {
   Future<FieldDataResponseFormat?> _sendWithResponse(List<String> msg) async {
     _send(msg);
     final listener = _stream.stream.listen((event) {});
-    final completer = Completer<FieldDataResponseFormat>();
+    final completer = Completer<FieldDataResponseFormat?>();
     Timer t  = Timer(const Duration(seconds: 60), () => completer.complete(null));
     listener.onData((data) async {
       if (!data.isAck && !data.isNack) {
