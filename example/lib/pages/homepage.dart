@@ -19,16 +19,29 @@ class _HomePageState extends State<HomePage> {
   final razer = RMSTerminalSDK();
   TextEditingController ipController = TextEditingController();
   TextEditingController invoiceNoController = TextEditingController();
+  TextEditingController amountController = TextEditingController();
   FieldDataResponseFormat? fieldData;
 
   @override
   void initState() {
     super.initState();
-    ipController = TextEditingController(text: '192.168.0.52');
+    ipController = TextEditingController(text: '192.168.0.133');
+    amountController = TextEditingController(text: '500');
   }
 
   @override
   Widget build(BuildContext context) {
+    void _showToast(String message) {
+      final scaffold = ScaffoldMessenger.of(context);
+      scaffold.showSnackBar(
+        SnackBar(
+          content: Text(message),
+          action: SnackBarAction(
+              label: 'UNDO', onPressed: scaffold.hideCurrentSnackBar),
+        ),
+      );
+    }
+
     final textData = [
       TextData('Pay Account Id:', value: fieldData?.payAccountId),
       TextData('Approve Code:', value: fieldData?.approvalCode),
@@ -62,6 +75,7 @@ class _HomePageState extends State<HomePage> {
     ];
 
     final leftSide = Expanded(
+      flex: 2,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,8 +112,10 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () async {
                     try {
                       await razer.connect(ipController.text);
+                      _showToast('Connected');
                     } catch (err) {
-                      print('Connected');
+                      print(err);
+                      _showToast('Something went wrong');
                     }
                   },
                   child: const Text("Connect"),
@@ -111,34 +127,64 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          SizedBox(
-            width: 250,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                textAlign: TextAlign.center,
-                controller: invoiceNoController,
-                decoration: const InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
-                  enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                      borderRadius: BorderRadius.all(Radius.circular(15.0))),
-                  hintText: 'Invoice No',
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 250,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    controller: invoiceNoController,
+                    decoration: const InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.grey, width: 1.0),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(15.0))),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.grey, width: 1.0),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(15.0))),
+                      hintText: 'Invoice No',
+                    ),
+                  ),
                 ),
               ),
-            ),
+              SizedBox(
+                width: 250,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    textAlign: TextAlign.center,
+                    controller: amountController,
+                    decoration: const InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.grey, width: 1.0),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(15.0))),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.grey, width: 1.0),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(15.0))),
+                      hintText: 'Amount',
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               TextButton(
-                onPressed: () =>
-                    razer.settlement().then((value) => fieldData = value),
-                child: const Text("Settlement"),
-              ),
-              TextButton(
-                onPressed: () => razer.purchase(100).then((value) {
+                onPressed: () => razer
+                    .purchase(int.parse(amountController.text))
+                    .then((value) {
                   setState(() {
                     fieldData = value;
                     invoiceNoController =
@@ -148,7 +194,8 @@ class _HomePageState extends State<HomePage> {
                 child: const Text("Purchase"),
               ),
               TextButton(
-                onPressed: () => razer.refund(invoiceNoController.text).then((value) {
+                onPressed: () =>
+                    razer.refund(invoiceNoController.text).then((value) {
                   setState(() {
                     fieldData = value;
                     invoiceNoController =
@@ -161,6 +208,11 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () => razer.cancel(),
                 child: const Text("Cancel"),
               ),
+              TextButton(
+                onPressed: () =>
+                    razer.settlement().then((value) => fieldData = value),
+                child: const Text("Settlement"),
+              ),
             ],
           ),
         ],
@@ -168,62 +220,64 @@ class _HomePageState extends State<HomePage> {
     );
 
     final rightSide = Expanded(
-      flex: 2,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              height: 50,
-              decoration: BoxDecoration(
-                border: Border.all(width: 1, color: Colors.grey),
+      flex: 3,
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: 50,
+                decoration: BoxDecoration(
+                  border: Border.all(width: 1, color: Colors.grey),
+                ),
+                child: Row(
+                  children: const [
+                    SizedBox(
+                        width: 250,
+                        child: Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            'Data',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        )),
+                  ],
+                ),
               ),
-              child: Row(
-                children: const [
-                  SizedBox(
-                      width: 250,
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          'Data',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                      )),
-                ],
-              ),
-            ),
-            ...textData
-                .where((element) => element.value != null)
-                .map(
-                  (e) => Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Colors.grey)),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 250,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              e.name,
-                              textAlign: TextAlign.left,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
+              ...textData
+                  .map(
+                    (e) => Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                          border: Border.all(width: 1, color: Colors.grey)),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: 250,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                e.name,
+                                textAlign: TextAlign.left,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
-                        ),
-                        Text(
-                          e.value!,
-                          textAlign: TextAlign.left,
-                        )
-                      ],
+                          Text(
+                            e.value ?? '',
+                            textAlign: TextAlign.left,
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                )
-                .toList(),
-          ],
+                  )
+                  .toList(),
+            ],
+          ),
         ),
       ),
     );
