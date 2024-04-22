@@ -90,6 +90,7 @@ class CustomDateResponseFormat {
       'walletCurrencyCode': walletCurrencyCode,
       'walletAmount': walletAmount,
       'walletExchangeRate': walletExchangeRate,
+      'walletProductName': walletProductName,
     };
   }
 
