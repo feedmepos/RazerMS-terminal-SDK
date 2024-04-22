@@ -71,6 +71,7 @@ class CustomDateResponseFormat {
     this.walletCurrencyCode,
     this.walletAmount,
     this.walletExchangeRate,
+    this.walletProductName,
   });
 
   Map<String, dynamic> toMap() {
@@ -89,6 +90,7 @@ class CustomDateResponseFormat {
       'walletCurrencyCode': walletCurrencyCode,
       'walletAmount': walletAmount,
       'walletExchangeRate': walletExchangeRate,
+      'walletProductName': walletProductName,
     };
   }
 
@@ -131,6 +133,7 @@ class CustomDateResponseFormat {
       walletExchangeRate: map['walletExchangeRate'] != null
           ? map['walletExchangeRate'] as String
           : null,
+      walletProductName: map["walletProductName"],
     );
   }
 
