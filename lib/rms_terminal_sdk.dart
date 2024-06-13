@@ -20,13 +20,14 @@ class RMSTerminalSDK {
 
   Future<void> _reset() async {
     await _listener?.cancel();
-    await _socket?.close();
+    // await _socket?.close();
+    _socket?.destroy();
     _listener = null;
     _socket = null;
   }
 
   Future<void> connect(String ipAddress) async {
-    if (_ipAddress == ipAddress) throw "Already connected to $ipAddress";
+    // if (_ipAddress == ipAddress) throw "Already connected to $ipAddress";
     await _reset();
     _ipAddress = ipAddress;
     _socket = await Socket.connect(_ipAddress, 8800);
@@ -59,7 +60,8 @@ class RMSTerminalSDK {
     _send(msg);
     final listener = _stream.stream.listen((event) {});
     final completer = Completer<FieldDataResponseFormat?>();
-    Timer t  = Timer(const Duration(seconds: 60), () => completer.complete(null));
+    Timer t =
+        Timer(const Duration(seconds: 60), () => completer.complete(null));
     listener.onData((data) async {
       if (!data.isAck && !data.isNack) {
         _send([data.ackKey]);
