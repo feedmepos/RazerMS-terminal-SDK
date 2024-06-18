@@ -259,9 +259,23 @@ class FieldDataDecode extends FieldDataConfig {
     List<List<String>> result = [];
     var i = 0;
     while (i < data.length) {
+      // Check if we have enough room to access i + 4
+      if (i + 4 > data.length) {
+        break;  // Break if we do not have enough data left to read length
+      }
+
       int length = hexLength(data.sublist(i + 2, i + 4)) + 5;
+
+      // Ensure the calculated length does not go out of bounds
+      if (i + length > data.length) {
+        length = data.length - i;  // Adjust length to fit remaining data
+      }
+
       result.add(data.sublist(i, i + length));
       i += length;
+      // int length = hexLength(data.sublist(i + 2, i + 4)) + 5;
+      // result.add(data.sublist(i, i + length));
+      // i += length;
     }
     return result;
   }

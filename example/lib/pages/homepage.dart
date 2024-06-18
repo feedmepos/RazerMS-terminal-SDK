@@ -25,8 +25,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    ipController = TextEditingController(text: '192.168.0.133');
-    amountController = TextEditingController(text: '500');
+    ipController = TextEditingController(text: '192.168.0.130');
+    amountController = TextEditingController(text: '100');
   }
 
   @override
@@ -185,6 +185,7 @@ class _HomePageState extends State<HomePage> {
                 onPressed: () => razer
                     .purchase(int.parse(amountController.text))
                     .then((value) {
+                      print(value?.toJson());
                   setState(() {
                     fieldData = value;
                     invoiceNoController =
